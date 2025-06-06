@@ -1,0 +1,89 @@
+<%- include("partials/header.ejs") %>
+
+    <!-- Blog post entry form -->
+
+    <div class="blog-form">
+        <% if (locals.editPost===true) { %>
+
+            <div class="section-title">
+                <h1>Edit Post</h1>
+            </div>
+
+            <form action="/save" method="POST">
+                <input type="hidden" name="postIndex" value="<%= postIndex %>">
+                <h2>Post Title:</h2>
+                <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
+                <h3>Post:</h3>
+                <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
+                <div class="post-controls">
+                    <input type="submit" value="Save Edits">
+                </div>
+            </form>
+
+        <% } else { %>
+
+            <div class="section-title">
+                <h1>Create Post</h1>
+            </div>
+
+            <form action="/submit" method="POST">
+                <h2>Post Title:</h2>
+                <input type="text" id="newPostTitle" name="newPostTitle" required>
+                <h3>Post:</h3>
+                <textarea id="newPostText" name="newPostText" rows="4" required></textarea>
+                <div class="post-controls">
+                    <input type="submit" value="Post Now">
+                </div>
+            </form>
+
+        <% }; %>
+    </div>
+
+    <!-- The above EJS checks if the user is editing a post and displays the appropriate form -->
+
+    <!-- For-loop to display blog posts dynamically -->
+
+    <div class="blog-posts">
+        <div class="section-title">
+            <h2>All Posts</h2>
+        </div>
+
+        <% if (locals.posts && locals.posts.length > 0 && locals.texts && locals.texts.length > 0) { %>
+
+            <% for(i=0; i < posts.length; i++) { %>
+                <li>
+                    <h2>
+                        <%= posts[i] %>
+                    </h2>
+                    <h4>
+                        <%= timestamps[i] %>
+                    </h4>
+                    <p>
+                        <%= texts[i] %>
+                    </p>
+                    <div class="post-controls">
+                        <form action="/edit" method="GET">
+                            <input type="hidden" name="postIndex" value="<%= i %>">
+                            <input type="submit" value="Edit Post" id="editPost<%= i %>">
+                        </form>
+                        <form action="/delete" method="POST">
+                            <input type="hidden" name="postIndex" value="<%= i %>">
+                            <input type="submit" value="Delete Post" id="deletePost<%= i %>">
+                            <!-- The above EJS adds individual IDs to each edit and delete button to allow for specific article selection -->
+                        </form>
+                    </div>
+                </li>
+            <% }; %>
+
+        <% } else { %>
+
+        <div>
+            <h2>No Posts Available</h2>
+        </div>
+        <p>It seems there are no posts yet. Why not create one?</p>
+
+        <% }; %>
+        
+    </div>
+
+<%- include("partials/footer.ejs") %>
