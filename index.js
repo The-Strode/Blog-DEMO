@@ -19,6 +19,8 @@ function renderIndex(res, options = {}) {
         posts: postTitles,
         timestamps: postTimestamps,
         texts: postTexts,
+        // Pass the postTitles, postTimestamps, and postTexts arrays to the template
+        // This will allow the template to access the arrays and display the posts
     });
 }
 
