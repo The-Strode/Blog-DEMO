@@ -55,7 +55,7 @@ app.post("/submit", (req, res) => {
 //Editing a selected post
 
 app.get("/edit", (req, res) => {
-    const postIndex = req.query.postIndex; // Get the post index from the query parameter
+    const postIndex = parseInt(req.query.postIndex); // Get the post index from the query parameter
     const editTitle = postTitles[postIndex];
     const editText = postTexts[postIndex];
     if (postIndex === undefined || postIndex < 0 || postIndex >= postTitles.length) {
@@ -115,6 +115,7 @@ app.post("/delete", (req, res) => {
     console.log("Delete Selected: " + postTitles[postIndex]);
     postTitles.splice(postIndex, 1);
     postTexts.splice(postIndex, 1);
+    postTimestamps.splice(postIndex, 1);
     console.log("Post Deleted");
     // Remove the post from the arrays using splice
     renderIndex(res);
