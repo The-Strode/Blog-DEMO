@@ -160,3 +160,11 @@ var postTexts = [
 // Then attempt to implement an audio player in the header that is uninterrupted by page loads.
 // This represents a main goal in future endeavors, as it will allow for a more dynamic and user-friendly experience
 // when building websites for musicians and artists in mind.
+
+// The above "big one" will require a significant refactor of the current codebase. Further education required
+// in the use of React.js or similar frameworks to achieve this goal - Single Page Application (SPA) functionality.
+
+// Some AI tools were used to achieve this code, including OpenAI's ChatGPT for generating code snippets and explanations.
+// Mostly just the explanations of certain concepts to be honest, outside of one or two snippets.
+// That and filling out some of these comments to make them more readable and understandable.
+// Because why the hell not, right? That crap can get boring quick. I wanna code, not write comments.

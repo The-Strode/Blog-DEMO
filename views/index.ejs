@@ -3,14 +3,20 @@
     <!-- Blog post entry form -->
 
     <div class="blog-form">
+
+    <!-- If-else statement checks if the user is editing a post and displays the appropriate form -->
+    
         <% if (locals.editPost===true) { %>
 
             <div class="section-title">
                 <h1>Edit Post</h1>
             </div>
 
+            <!-- Edit Post Form -->
+
             <form action="/save" method="POST">
                 <input type="hidden" name="postIndex" value="<%= postIndex %>">
+                <!-- Maintains post identity through edit process, saving to appropriate place in array/database -->
                 <h2>Post Title:</h2>
                 <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
                 <h3>Post:</h3>
@@ -26,6 +32,8 @@
                 <h1>Create Post</h1>
             </div>
 
+            <!-- Create Post Form -->
+
             <form action="/submit" method="POST">
                 <h2>Post Title:</h2>
                 <input type="text" id="newPostTitle" name="newPostTitle" required>
@@ -39,14 +47,14 @@
         <% }; %>
     </div>
 
-    <!-- The above EJS checks if the user is editing a post and displays the appropriate form -->
-
     <!-- For-loop to display blog posts dynamically -->
 
     <div class="blog-posts">
         <div class="section-title">
             <h2>All Posts</h2>
         </div>
+
+        <!-- If-else statement determines if there are any posts to display. If not, a message is displayed instead -->
 
         <% if (locals.posts && locals.posts.length > 0 && locals.texts && locals.texts.length > 0) { %>
 
@@ -69,7 +77,6 @@
                         <form action="/delete" method="POST">
                             <input type="hidden" name="postIndex" value="<%= i %>">
                             <input type="submit" value="Delete Post" id="deletePost<%= i %>">
-                            <!-- The above EJS adds individual IDs to each edit and delete button to allow for specific article selection -->
                         </form>
                     </div>
                 </li>
@@ -79,8 +86,8 @@
 
         <div>
             <h2>No Posts Available</h2>
+            <p>It seems there are no posts yet. Why not create one?</p>
         </div>
-        <p>It seems there are no posts yet. Why not create one?</p>
 
         <% }; %>
         
