@@ -40,7 +40,7 @@ app.get("/account", (req, res) => {
 
 app.post("/submit", (req, res) => {
     let currentPostTitle = req.body["newPostTitle"];
-    let currentPostTimestamp = new Date().toISOString().slice(0, 16).replace("T", " ");
+    let currentPostTimestamp = req.body["localTimestamp"];
     let currentPostBody = req.body["newPostText"];
     //Establish variables to represent new Post Title and Text parsed from forms from index.ejs
     postTitles.push(currentPostTitle);
@@ -84,7 +84,7 @@ app.get("/edit", (req, res) => {
 app.post("/save", (req, res) => {
     const postIndex = parseInt(req.body.postIndex);
     const newTitle = req.body.editPostTitle;
-    const newTimestamp = new Date().toISOString().slice(0, 16).replace("T", " ");
+    const newTimestamp = req.body.localTimestamp;
     const newText = req.body.editPostText;
     // Get the post index from the form data
     // Get the new title and text from the form data

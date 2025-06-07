@@ -23,6 +23,7 @@
                 <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
                 <div class="post-controls">
                     <input type="submit" value="Save Edits">
+                    <input type="hidden" id="localTimestamp" name="localTimestamp">
                 </div>
             </form>
 
@@ -41,6 +42,7 @@
                 <textarea id="newPostText" name="newPostText" rows="4" required></textarea>
                 <div class="post-controls">
                     <input type="submit" value="Post Now">
+                    <input type="hidden" id="localTimestamp" name="localTimestamp">
                 </div>
             </form>
 
@@ -92,5 +94,26 @@
         <% }; %>
         
     </div>
+
+<script>
+function setLocalTimestamp(form) {
+    const now = new Date();
+    // Format as YYYY-MM-DD HH:mm in local time
+    const formatted = now.getFullYear() + "-" +
+        String(now.getMonth() + 1).padStart(2, '0') + "-" +
+        String(now.getDate()).padStart(2, '0') + " " +
+        String(now.getHours()).padStart(2, '0') + ":" +
+        String(now.getMinutes()).padStart(2, '0');
+    form.querySelector('[name="localTimestamp"]').value = formatted;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("form[action='/submit'], form[action='/save']").forEach(form => {
+        form.addEventListener("submit", function() {
+            setLocalTimestamp(form);
+        });
+    });
+});
+</script>
 
 <%- include("partials/footer.ejs") %>
