@@ -104,6 +104,8 @@ function setLocalTimestamp(form) {
         String(now.getDate()).padStart(2, '0') + " " +
         String(now.getHours()).padStart(2, '0') + ":" +
         String(now.getMinutes()).padStart(2, '0');
+        // Ensures two-digit format for month, day, hours, and minutes
+        // This is to ensure the timestamp is in a consistent format
     form.querySelector('[name="localTimestamp"]').value = formatted;
 }
 
@@ -114,6 +116,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+// Sets the local timestamp when the form is submitted
+// This timestamp is used to display the time of the post in local format
 </script>
 
 <%- include("partials/footer.ejs") %>
+
+<!-- At some point consider moving the posting mechanism and the post rolls into their own partials/pages -->
+<!-- This will help isolate the function to call for users local time to only instances that use the post form -->
