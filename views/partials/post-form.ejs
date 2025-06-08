@@ -1,0 +1,48 @@
+    <!-- Blog post entry form -->
+
+    <div class="blog-form">
+
+    <!-- If-else statement checks if the user is editing a post and displays the appropriate form -->
+    
+        <% if (locals.editPost===true) { %>
+
+            <div class="section-title">
+                <h1>Edit Post</h1>
+            </div>
+
+            <!-- Edit Post Form -->
+
+            <form action="/save" method="POST">
+                <input type="hidden" name="postIndex" value="<%= postIndex %>">
+                <!-- Maintains post identity through edit process, saving to appropriate place in array/database -->
+                <h2>Post Title:</h2>
+                <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
+                <h3>Post:</h3>
+                <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
+                <div class="post-controls">
+                    <input type="submit" value="Save Edits">
+                    <input type="hidden" id="localTimestamp" name="localTimestamp">
+                </div>
+            </form>
+
+        <% } else { %>
+
+            <div class="section-title">
+                <h1>Create Post</h1>
+            </div>
+
+            <!-- Create Post Form -->
+
+            <form action="/submit" method="POST">
+                <h2>Post Title:</h2>
+                <input type="text" id="newPostTitle" name="newPostTitle" required>
+                <h3>Post:</h3>
+                <textarea id="newPostText" name="newPostText" rows="4" required></textarea>
+                <div class="post-controls">
+                    <input type="submit" value="Post Now">
+                    <input type="hidden" id="localTimestamp" name="localTimestamp">
+                </div>
+            </form>
+
+        <% }; %>
+    </div>
