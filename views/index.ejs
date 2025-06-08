@@ -2,55 +2,6 @@
 
 <%- include("partials/post-form.ejs") %>
 
-    <!-- Blog post entry form -->
-
-    <div class="blog-form">
-
-    <!-- If-else statement checks if the user is editing a post and displays the appropriate form -->
-    
-        <% if (locals.editPost===true) { %>
-
-            <div class="section-title">
-                <h1>Edit Post</h1>
-            </div>
-
-            <!-- Edit Post Form -->
-
-            <form action="/save" method="POST">
-                <input type="hidden" name="postIndex" value="<%= postIndex %>">
-                <!-- Maintains post identity through edit process, saving to appropriate place in array/database -->
-                <h2>Post Title:</h2>
-                <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
-                <h3>Post:</h3>
-                <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
-                <div class="post-controls">
-                    <input type="submit" value="Save Edits">
-                    <input type="hidden" id="localTimestamp" name="localTimestamp">
-                </div>
-            </form>
-
-        <% } else { %>
-
-            <div class="section-title">
-                <h1>Create Post</h1>
-            </div>
-
-            <!-- Create Post Form -->
-
-            <form action="/submit" method="POST">
-                <h2>Post Title:</h2>
-                <input type="text" id="newPostTitle" name="newPostTitle" required>
-                <h3>Post:</h3>
-                <textarea id="newPostText" name="newPostText" rows="4" required></textarea>
-                <div class="post-controls">
-                    <input type="submit" value="Post Now">
-                    <input type="hidden" id="localTimestamp" name="localTimestamp">
-                </div>
-            </form>
-
-        <% }; %>
-    </div>
-
     <!-- For-loop to display blog posts dynamically -->
 
     <div class="blog-posts">
@@ -96,31 +47,6 @@
         <% }; %>
         
     </div>
-
-<script>
-function setLocalTimestamp(form) {
-    const now = new Date();
-    // Format as YYYY-MM-DD HH:mm in local time
-    const formatted = now.getFullYear() + "-" +
-        String(now.getMonth() + 1).padStart(2, '0') + "-" +
-        String(now.getDate()).padStart(2, '0') + " " +
-        String(now.getHours()).padStart(2, '0') + ":" +
-        String(now.getMinutes()).padStart(2, '0');
-        // Ensures two-digit format for month, day, hours, and minutes
-        // This is to ensure the timestamp is in a consistent format
-    form.querySelector('[name="localTimestamp"]').value = formatted;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll("form[action='/submit'], form[action='/save']").forEach(form => {
-        form.addEventListener("submit", function() {
-            setLocalTimestamp(form);
-        });
-    });
-});
-// Sets the local timestamp when the form is submitted
-// This timestamp is used to display the time of the post in local format
-</script>
 
 <%- include("partials/footer.ejs") %>
 
