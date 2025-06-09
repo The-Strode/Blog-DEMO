@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { postTitles, postTimestamps, postTexts } from "./data.js";
 
 const app = express();
 const port = 3000;
@@ -34,6 +35,16 @@ app.get("/", (req, res) => {
 
 app.get("/account", (req, res) => {
     res.render("account.ejs");
+});
+
+app.get("/posts", (req, res) => {
+    res.render("posts.ejs", {
+        posts: postTitles,
+        timestamps: postTimestamps,
+        texts: postTexts,
+        // Pass the postTitles, postTimestamps, and postTexts arrays to the template
+        // This will allow the template to access the arrays and display the posts
+    });
 });
 
 //Creating a new post
@@ -126,27 +137,8 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-// Below - Arrays containing Post Titles, Timestamps, and Texts, including examples to showcase on load
-// Eventually these will be replaced with a database to store posts
-// For now, they are hardcoded for simplicity and demonstration purposes
-
-var postTitles = [
-    "Post One",
-    "Post Two",
-];
-
-var postTimestamps = [
-    "2023-10-01 12:00",
-    "2023-10-02 14:30",
-];
-
-var postTexts = [
-    "This is example post Number 1",
-    "And this is the second example",
-];
-
 // Ideas for future improvements and features:
-// 1. Implement a database to store posts instead of using arrays.
+// 1. Implement a database to store posts instead of using arrays. Temporarily in a data.js file
 // 2. Add user authentication to allow users to create accounts and manage their posts.
 // 3. Implement a comment system for each post, allowing users to leave feedback.
 // 4. Add pagination to the blog to display a limited number of posts per page.

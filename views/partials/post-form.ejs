@@ -1,5 +1,5 @@
 <!-- Blog post entry form -->
- 
+
 <div class="blog-form">
 
 <!-- If-else statement checks if the user is editing a post and displays the appropriate form -->
@@ -11,6 +11,8 @@
 
         <!-- Edit Post Form -->
 
+        
+        <div class="post-controls">
         <form action="/save" method="POST">
             <input type="hidden" name="postIndex" value="<%= postIndex %>">
             <!-- Maintains post identity through edit process, saving to appropriate place in array/database -->
@@ -18,11 +20,19 @@
             <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
             <h3>Post:</h3>
             <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
-            <div class="post-controls">
-                <input type="submit" value="Save Edits">
                 <input type="hidden" id="localTimestamp" name="localTimestamp">
-            </div>
+                <input type="submit" value="Save Edits">
         </form>
+            <form action="/delete" method="POST">
+                <input type="hidden" name="postIndex" value="<%= postIndex %>">
+                <input type="submit" value="Delete Post" id="deletePost<%= postIndex %>">
+            </form>
+        </div>
+
+        <!-- Explore the idea of multiple buttons in one form with different values triggering a check on server side. -->
+        <!-- Check value of action selecte with req.body.action and an if statement to determine result -->
+
+        <!-- Add a copy of the pre-edited post underneath in the style of a displayed post as a reference -->
 
     <% } else { %>
 
