@@ -2,7 +2,7 @@
 
 <div class="blog-form">
 
-<!-- If-else statement checks if the user is editing a post and displays the appropriate form -->
+    <!-- If-else statement checks if the user is editing a post and displays the appropriate form -->
 
     <% if (locals.editPost===true) { %>
         <div class="section-title">
@@ -13,26 +13,37 @@
 
         
         <div class="post-controls">
-        <form action="/save" method="POST">
-            <input type="hidden" name="postIndex" value="<%= postIndex %>">
-            <!-- Maintains post identity through edit process, saving to appropriate place in array/database -->
-            <h2>Post Title:</h2>
-            <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
-            <h3>Post:</h3>
-            <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
-                <input type="hidden" id="localTimestamp" name="localTimestamp">
-                <input type="submit" value="Save Edits">
-        </form>
-            <form action="/delete" method="POST">
+            <form action="/post-action" method="POST">
                 <input type="hidden" name="postIndex" value="<%= postIndex %>">
-                <input type="submit" value="Delete Post" id="deletePost<%= postIndex %>">
+                <!-- Maintains post identity through edit process, saving to appropriate place in array/database -->
+                <h2>Post Title:</h2>
+                <input type="text" id="editPostTitle" name="editPostTitle" value="<%= oldTitle %>" required>
+                <h3>Post:</h3>
+                <textarea id="editPostText" name="editPostText" rows="4" required><%= oldText %></textarea>
+                <input type="hidden" id="localTimestamp" name="localTimestamp">
+                <button type="submit" name="action" value="save">Save Edits</button>
+                <button type="submit" name="action" value="delete">Delete Post</button>
             </form>
+            <!-- Remove below form, fold buttons into above and fix names/values to allow switch statement in post-controls.js -->
         </div>
 
         <!-- Explore the idea of multiple buttons in one form with different values triggering a check on server side. -->
         <!-- Check value of action selecte with req.body.action and an if statement to determine result -->
+        <!-- Refer to Web Dev Course 5.2 JSON and switch statements -->
 
         <!-- Add a copy of the pre-edited post underneath in the style of a displayed post as a reference -->
+
+        <div class="post-preview">
+            <h2>
+                <%= posts[postIndex] %>
+            </h2>
+            <h4>
+                <%= timestamps[postIndex] %>
+            </h4>
+            <p>
+                <%= texts[postIndex] %>
+            </p>
+        </div>
 
     <% } else { %>
 
@@ -72,7 +83,7 @@ function setLocalTimestamp(form) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll("form[action='/submit'], form[action='/save']").forEach(form => {
+    document.querySelectorAll("form[action='/submit'], form[action='/save'], form[action='/post-action']").forEach(form => {
         form.addEventListener("submit", function() {
             setLocalTimestamp(form);
         });

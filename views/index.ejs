@@ -2,6 +2,10 @@
 
 <%- include("partials/post-form.ejs") %>
 
+<!-- Replace the blog form post on index with a welcome page and couple buttons -->
+<!-- Keep blog post form off main page, and eventually inaccesible until user is logged in. -->
+<!-- Eventually commenting on blog posts can be allowed, and without user account to start (for testing purposes) -->
+
     <!-- For-loop to display blog posts dynamically -->
 
     <div class="blog-posts">
@@ -28,10 +32,6 @@
                         <form action="/edit" method="GET">
                             <input type="hidden" name="postIndex" value="<%= i %>">
                             <input type="submit" value="Edit Post" id="editPost<%= i %>">
-                        </form>
-                        <form action="/delete" method="POST">
-                            <input type="hidden" name="postIndex" value="<%= i %>">
-                            <input type="submit" value="Delete Post" id="deletePost<%= i %>">
                         </form>
                     </div>
                 </li>
