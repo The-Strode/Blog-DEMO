@@ -3,12 +3,14 @@
 
 <%- include('partials/header') %>
 
-    <!-- For-loop to display blog posts dynamically -->
+<%- include("partials/post-form.ejs") %>
 
+    <!-- For-loop to display blog posts dynamically -->
     <div class="blog-posts">
         <div class="section-title">
-            <h2>All Posts</h2>
+            <h1>All Posts</h1>
         </div>
+
 
         <!-- If-else statement determines if there are any posts to display. If not, a message is displayed instead -->
 
@@ -29,10 +31,6 @@
                         <form action="/edit" method="GET">
                             <input type="hidden" name="postIndex" value="<%= i %>">
                             <input type="submit" value="Edit Post" id="editPost<%= i %>">
-                        </form>
-                        <form action="/delete" method="POST">
-                            <input type="hidden" name="postIndex" value="<%= i %>">
-                            <input type="submit" value="Delete Post" id="deletePost<%= i %>">
                         </form>
                     </div>
                 </li>

@@ -17,30 +17,20 @@ app.get("/", (req, res) => {
     renderPage(res, "index.ejs");
 });
 
-// Render account page
-
 app.get("/account", (req, res) => {
-    res.render("account.ejs");
+    renderPage(res, "account.ejs")
 });
 
 app.get("/posts", (req, res) => {
-    res.render("posts.ejs", {
-        posts: postTitles,
-        timestamps: postTimestamps,
-        texts: postTexts,
-        // Pass the postTitles, postTimestamps, and postTexts arrays to the template
-        // This will allow the template to access the arrays and display the posts
-    });
+    renderPage(res, "posts.ejs")
 });
-
-// Post action with switch statement
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
 // Ideas for future improvements and features:
-// 1. Implement a database to store posts instead of using arrays. Temporarily in a data.js file
+// 1. Implement a database to store posts instead of using arrays. Temporarily examples housed in a data.js file
 // 2. Add user authentication to allow users to create accounts and manage their posts.
 // 3. Implement a comment system for each post, allowing users to leave feedback.
 // 4. Add pagination to the blog to display a limited number of posts per page.

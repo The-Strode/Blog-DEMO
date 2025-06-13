@@ -3,6 +3,7 @@ import { renderPage } from "./renderPage.js"; // Assuming renderPage is in a sep
 import { postTitles, postTimestamps, postTexts } from "./data.js";
 
 function registerPostRoutes(app) {
+
     //Creating a new post
 
     app.post("/submit", (req, res) => {
@@ -31,7 +32,7 @@ function registerPostRoutes(app) {
         // If the postIndex is not valid, return a 400 Bad Request response
         // If the postIndex is valid, proceed to render the edit form
         // This will allow the user to edit the post title and text in the form fields
-        renderPage(res, "index.ejs", {
+        renderPage(res, "posts.ejs", {
             editPost: true,
             oldTitle: postTitles[postIndex],
             oldText: postTexts[postIndex],
@@ -42,13 +43,13 @@ function registerPostRoutes(app) {
         // This will allow the user to see the current post title and text in the form fields
     });
 
-    // Saving the edited post
-
     app.post("/post-action", (req, res) => {
         const action = req.body.action; // Get the action from the form data
         const postIndex = parseInt(req.body.postIndex); // Get the post index from the form data
 
         switch (action) {
+
+            // Saving the edited post
 
             case "save": {
                 const newTitle = req.body.editPostTitle;
@@ -72,7 +73,9 @@ function registerPostRoutes(app) {
                 break;
             }
 
-            // Deleting a selected post
+            // Deleting the selected post
+
+            // Add a confirm() here at some point
 
             case "delete": {
                 if (postIndex === undefined || postIndex < 0 || postIndex >= postTitles.length) {
@@ -90,13 +93,10 @@ function registerPostRoutes(app) {
                 // Re-render the index.ejs to update the blog entries
                 break;
             }
-            // renderIndex(res);
-            // Re-render the index.ejs to update the blog entries with the edited post
             default:
                 return res.status(400).send("Invalid action");
         }
     });
-
 
 };
 
