@@ -1,26 +1,22 @@
-<%- include("partials/header.ejs") %>
+<!-- By modularizing the page, we separate the posts archive from the post form. -->
+<!-- Eventually we will replace the delete button with "read more..." and move delete function to post-form page. -->
 
-    <div class="main-body">
-        <div class="section-title">
-            <h1>Welcome to Okzygen</h1>
-        </div>
-    </div>
+<%- include('partials/header') %>
+
+<%- include("partials/post-form.ejs") %>
+
     <!-- For-loop to display blog posts dynamically -->
-
     <div class="blog-posts">
         <div class="section-title">
-            <h2>Recent Posts</h2>
+            <h1>All Posts</h1>
         </div>
+
 
         <!-- If-else statement determines if there are any posts to display. If not, a message is displayed instead -->
 
         <% if (locals.posts && locals.posts.length > 0 && locals.texts && locals.texts.length > 0) { %>
 
-            <% 
-            const start = posts.length - 1;
-            const end = Math.max(posts.length - 5, 0);
-            for(let i = start; i >= end; i--) { 
-%>
+            <% for(i=0; i < posts.length; i++) { %>
                 <li>
                     <h2>
                         <%= posts[i] %>
@@ -51,4 +47,4 @@
         
     </div>
 
-<%- include("partials/footer.ejs") %>
+<%- include('partials/footer') %>
