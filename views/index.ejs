@@ -14,40 +14,15 @@
 
         <!-- If-else statement determines if there are any posts to display. If not, a message is displayed instead -->
 
-        <% if (locals.posts && locals.posts.length > 0 && locals.texts && locals.texts.length > 0) { %>
-
-            <% 
-            const start = posts.length - 1;
-            const end = Math.max(posts.length - 5, 0);
-            for(let i = start; i >= end; i--) { 
-%>
-                <li>
-                    <h2>
-                        <%= posts[i] %>
-                    </h2>
-                    <h4>
-                        <%= timestamps[i] %>
-                    </h4>
-                    <p>
-                        <%= texts[i] %>
-                    </p>
-                    <div class="post-controls">
-                        <form action="/edit" method="GET">
-                            <input type="hidden" name="postIndex" value="<%= i %>">
-                            <input type="submit" value="Edit Post" id="editPost<%= i %>">
-                        </form>
-                    </div>
-                </li>
-            <% }; %>
-
-        <% } else { %>
-
-        <div>
-            <h2>No Posts Available</h2>
-            <p>It seems there are no posts yet. Why not create one?</p>
-        </div>
-
-        <% }; %>
+        <ul>
+            <%- include("partials/post-roll.ejs", {
+                posts: posts,
+                timestamps: timestamps,
+                texts: texts,
+                limit: 5,        // or any number you want
+                reverse: true    // or false for oldest first
+            }) %>
+        </ul>
         
     </div>
 

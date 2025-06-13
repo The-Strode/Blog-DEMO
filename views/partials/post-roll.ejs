@@ -1,0 +1,51 @@
+<% 
+    // Default values if not provided
+    var postLimit = typeof limit !== "undefined" ? limit : 5;
+    var reverse = typeof reverse !== "undefined" ? reverse : true;
+    const start = reverse ? posts.length - 1 : 0;
+    const end = reverse ? Math.max(posts.length - postLimit, 0) : Math.min(postLimit, posts.length);
+
+    if (!posts || posts.length === 0 || !texts || texts.length === 0) { 
+%>
+    <div>
+        <h2>No Posts Available</h2>
+        <p>It seems there are no posts yet. Why not create one?</p>
+    </div>
+
+<% } else if (reverse) { %>
+
+    <% for(let i = start; i >= end; i--) { %>
+
+        <li>
+            <h2><%= posts[i] %></h2>
+            <h4><%= timestamps[i] %></h4>
+            <p><%= texts[i] %></p>
+            <div class="post-controls">
+                <form action="/edit" method="GET">
+                    <input type="hidden" name="postIndex" value="<%= i %>">
+                    <input type="submit" value="Edit Post" id="editPost<%= i %>">
+                </form>
+            </div>
+        </li>
+
+    <% } %>
+
+<% } else { %>
+
+    <% for(let i = start; i < end; i++) { %>
+        
+        <li>
+            <h2><%= posts[i] %></h2>
+            <h4><%= timestamps[i] %></h4>
+            <p><%= texts[i] %></p>
+            <div class="post-controls">
+                <form action="/edit" method="GET">
+                    <input type="hidden" name="postIndex" value="<%= i %>">
+                    <input type="submit" value="Edit Post" id="editPost<%= i %>">
+                </form>
+            </div>
+        </li>
+
+    <% } %>
+
+<% } %>
